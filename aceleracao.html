@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aceleração — Tráfego, CRO e Retenção juntos | Livonno</title>
+<meta name="description" content="A Aceleração é o plano da Livonno que reúne gestão de tráfego pago, CRO e retenção em uma única operação — cada frente usa o que a outra aprende. Auditoria gratuita.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050505'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23B7FF00' stroke-width='1.6'/%3E%3Ccircle cx='27' cy='16' r='2.3' fill='%23B7FF00'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   LIVONNO — design tokens (idênticos à home)
+   ============================================================ */
+:root{
+  --ink:#050505;
+  --ink-2:#090A08;
+  --ink-3:#11140D;
+  --paper:#0D0F0B;
+  --paper-2:#15190F;
+  --paper-3:#29331B;
+  --brass:#B7FF00;
+  --brass-bright:#D2FF4D;
+  --brass-dim:#8CC400;
+  --emerald:#A7E800;
+  --emerald-bright:#C5FF3D;
+  --slate:#D2D7CC;
+  --slate-soft:#8F9788;
+  --mist:#30382A;
+  --ink-mist:rgba(255,255,255,0.10);
+  --ink-mist-strong:rgba(183,255,0,0.24);
+  --paper-text:#F5F7F2;
+
+  --font-display:'Zilla Slab',serif;
+  --font-body:'IBM Plex Sans',-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --container:1180px;
+  --edge:clamp(1.5rem,5vw,4rem);
+  --r:3px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--slate);
+  line-height:1.6;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;background:none;border:none;cursor:pointer;color:inherit}
+
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.08;letter-spacing:-0.015em}
+
+.container{max-width:var(--container);margin:0 auto;padding-left:var(--edge);padding-right:var(--edge)}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:0.72rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+  gap:0.6em;
+}
+.eyebrow::before{content:"";width:1.6em;height:1px;background:currentColor;display:inline-block}
+.eyebrow--brass{color:var(--brass)}
+.eyebrow--ink{color:var(--slate-soft)}
+
+.section{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.section--ink{background:var(--ink);color:var(--paper-text)}
+.section--paper{background:var(--paper)}
+.section__head{max-width:640px;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.section__head--wide{max-width:760px}
+.section__title{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-top:0.6em}
+.section--ink .section__title{color:var(--paper-text)}
+.section--paper .section__title{color:var(--ink)}
+.section__text{margin-top:1.1rem;font-size:1.05rem;line-height:1.7}
+.section--ink .section__text{color:rgba(238,241,236,0.78)}
+.section--paper .section__text{color:var(--slate)}
+.section__text + .section__text{margin-top:1rem}
+
+.divider{height:1px;background:var(--mist);border:none;margin:0}
+.section--ink .divider{background:var(--ink-mist)}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:0.6em;
+  padding:0.95em 1.7em;
+  font-family:var(--font-body);font-weight:600;font-size:0.95rem;
+  border-radius:var(--r);
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  white-space:normal;
+  text-align:center;
+}
+.btn--primary{
+  background:var(--brass);
+  color:var(--ink);
+  box-shadow:0 0 0 1px rgba(183,255,0,0.10),0 8px 24px rgba(183,255,0,0.08);
+}
+.btn--primary:hover{background:var(--brass-bright);transform:translateY(-1px);box-shadow:0 0 0 1px rgba(210,255,77,0.18),0 10px 30px rgba(183,255,0,0.14)}
+.btn--ghost{
+  background:transparent;
+  border:1px solid var(--ink-mist-strong);
+  color:var(--paper-text);
+}
+.btn--ghost:hover{border-color:var(--brass);color:var(--brass-bright)}
+.btn--sm{padding:0.7em 1.3em;font-size:0.85rem}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.1rem var(--edge);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,5,5,0.0);
+  border-bottom:1px solid transparent;
+  transition:background-color .25s ease, border-color .25s ease, padding .25s ease;
+}
+.site-header.is-scrolled{
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--ink-mist);
+  padding-top:0.8rem;padding-bottom:0.8rem;
+}
+.logo{display:flex;align-items:center;gap:0.6rem}
+.logo__mark{width:26px;height:26px;flex:none}
+.logo__word{
+  font-family:var(--font-display);font-weight:700;
+  font-size:1.4rem;color:var(--paper-text);letter-spacing:0.005em;
+}
+.nav__links{display:flex;align-items:center;gap:2.1rem}
+.nav__link{
+  font-size:0.88rem;color:rgba(238,241,236,0.75);
+  transition:color .18s ease;
+}
+.nav__link:hover{color:var(--brass-bright)}
+.nav__right{display:flex;align-items:center;gap:1.4rem}
+.nav__toggle{display:none;width:26px;height:20px;position:relative;flex:none}
+.nav__toggle span{
+  position:absolute;left:0;right:0;height:2px;background:var(--paper-text);
+  transition:transform .25s ease, opacity .25s ease;
+}
+.nav__toggle span:nth-child(1){top:0}
+.nav__toggle span:nth-child(2){top:9px}
+.nav__toggle span:nth-child(3){top:18px}
+.nav__toggle.is-open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.nav__toggle.is-open span:nth-child(2){opacity:0}
+.nav__toggle.is-open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+
+/* WhatsApp float */
+.wa-float{
+  position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:90;
+  width:58px;height:58px;border-radius:50%;
+  background:#B7FF00;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.18);
+  transition:transform .2s ease;
+}
+.wa-float:hover{transform:translateY(-3px) scale(1.04)}
+.wa-float svg{width:29px;height:29px}
+.wa-float__ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px solid rgba(183,255,0,0.55);
+  animation:wa-pulse 2.6s ease-out infinite;
+}
+@keyframes wa-pulse{
+  0%{transform:scale(1);opacity:0.7}
+  100%{transform:scale(1.55);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){.wa-float__ring{animation:none}}
+
+/* "Em breve" toast */
+.toast{
+  position:fixed;left:50%;bottom:clamp(1.2rem,4vw,2.4rem);
+  transform:translate(-50%,16px);
+  z-index:150;max-width:min(92vw,380px);
+  background:var(--ink-2);border:1px solid var(--ink-mist-strong);border-left:3px solid var(--brass);
+  border-radius:var(--r);padding:1rem 1.3rem;
+  font-size:0.9rem;color:var(--paper-text);line-height:1.5;
+  box-shadow:0 14px 34px rgba(0,0,0,0.4);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+}
+.toast.is-visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+@media (prefers-reduced-motion:reduce){.toast{transition:opacity .01s linear}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;background:var(--ink);color:var(--paper-text);
+  min-height:100svh;
+  display:flex;align-items:center;
+  padding:clamp(7rem,14vw,3rem) 0 clamp(4rem,8vw,5rem);
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 38%,rgba(183,255,0,0.16) 0,rgba(183,255,0,0.07) 18%,transparent 43%),
+    linear-gradient(rgba(183,255,0,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(183,255,0,0.035) 1px,transparent 1px);
+  background-size:auto,72px 72px,72px 72px;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.25) 78%,transparent);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.25) 78%,transparent);
+}
+.hero__signal{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.72}
+.hero__signal svg{width:100%;height:100%}
+.signal-line{fill:none;stroke:url(#signalGradient);stroke-linecap:round}
+.signal-line--main{stroke-width:1.8;opacity:.92;filter:url(#signalGlow)}
+.signal-line--soft{stroke-width:1;opacity:.26}
+.signal-ring{fill:none;stroke:var(--brass);opacity:.24}
+.signal-core{fill:var(--brass);filter:url(#signalGlow)}
+.signal-pulse{transform-box:fill-box;transform-origin:center;animation:signal-pulse 3.2s ease-in-out infinite}
+@keyframes signal-pulse{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:.8;transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.signal-pulse{animation:none}}
+
+.hero__inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 var(--edge);text-align:left}
+.hero__headline{
+  font-size:clamp(2.35rem,5vw,4.15rem);
+  margin-top:1.1rem;
+  color:var(--paper-text);
+  line-height:0.98;
+  max-width:1100px;
+}
+.hero__headline-line{display:block}
+.hero__headline-accent{color:var(--brass)}
+.hero__headline-line--mid,.hero__headline-line--bottom{color:var(--paper-text)}
+.hero__subheadline{
+  margin-top:1.6rem;font-size:1.15rem;line-height:1.65;max-width:620px;
+  color:rgba(238,241,236,0.8);
+}
+.hero__actions{margin-top:2.3rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.hero__support{margin-top:1rem;font-size:0.85rem;color:var(--slate-soft)}
+
+.hero__scroll{
+  position:absolute;left:var(--edge);bottom:2rem;z-index:2;
+  display:flex;align-items:center;gap:0.7rem;color:var(--slate-soft);
+  font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+}
+.hero__scroll-line{width:1px;height:34px;background:linear-gradient(var(--brass),transparent)}
+@media (max-width:600px){.hero__scroll{display:none}}
+
+/* ============================================================
+   PROBLEMA
+   ============================================================ */
+.problem{background:var(--ink);color:var(--paper-text);padding-top:2rem}
+.problem__layout{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
+.problem__stat{
+  border:1px solid var(--ink-mist-strong);padding:2.2rem 1.8rem;
+  border-left:2px solid var(--brass);
+}
+.problem__stat-num{
+  display:block;font-family:var(--font-mono);font-weight:600;
+  font-size:clamp(2.4rem,4.5vw,3.4rem);color:var(--brass-bright);line-height:1;
+}
+.problem__stat-label{display:block;margin-top:0.9rem;font-size:0.92rem;color:rgba(238,241,236,0.72);line-height:1.55}
+.problem__stat-label em{display:block;margin-top:0.6rem;font-style:italic;color:var(--slate-soft);font-size:0.82rem}
+@media (max-width:820px){.problem__layout{grid-template-columns:1fr}}
+
+/* ============================================================
+   COMO FUNCIONA
+   ============================================================ */
+.steps__path{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;position:relative;margin-top:1rem;
+}
+.steps__path::before{
+  content:"";position:absolute;top:26px;left:8%;right:8%;height:1px;
+  background:repeating-linear-gradient(90deg,var(--mist) 0 8px,transparent 8px 15px);
+  z-index:0;
+}
+.step{position:relative;z-index:1}
+.step__index{
+  width:52px;height:52px;border-radius:50%;background:var(--paper);
+  border:1px solid var(--mist);display:flex;align-items:center;justify-content:center;
+  color:var(--brass-dim);
+}
+.step__index svg{width:22px;height:22px}
+.step__title{margin-top:1.3rem;font-size:1.25rem;color:var(--ink)}
+.step__text{margin-top:0.6rem;font-size:0.96rem;color:var(--slate);line-height:1.65}
+@media (max-width:820px){
+  .steps__path{grid-template-columns:1fr;gap:2.2rem}
+  .steps__path::before{display:none}
+}
+
+/* ============================================================
+   O QUE INCLUI — três frentes (pillars)
+   ============================================================ */
+.pillar{margin-top:clamp(3.2rem,6vw,4.8rem);padding-top:clamp(3.2rem,6vw,4.8rem);border-top:1px solid var(--mist)}
+.pillar:first-of-type{margin-top:2.4rem;padding-top:0;border-top:none}
+.pillar__label{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-dim)}
+.pillar__title{margin-top:0.55rem;font-size:1.55rem;color:var(--ink)}
+.pillar__intro{margin-top:0.8rem;font-size:0.99rem;color:var(--slate);line-height:1.65;max-width:600px}
+
+.pillar__pair{display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(2rem,5vw,3.5rem);align-items:center;margin-top:1.4rem}
+.channels-viz{max-width:360px;margin:0 auto}
+.channel-line{fill:none;stroke:var(--brass);stroke-width:1;stroke-opacity:0.4}
+.channel-dot{fill:var(--brass-bright)}
+.channel-label{font-family:var(--font-mono);font-size:11px;fill:var(--slate)}
+.channel-dest{fill:var(--paper);stroke:var(--brass);stroke-width:2}
+.channel-dest-label{font-family:var(--font-mono);font-size:10px;fill:var(--ink);letter-spacing:0.04em;font-weight:600}
+@media (max-width:900px){.pillar__pair{grid-template-columns:1fr}}
+
+.pillar-grid{margin-top:1.7rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 2rem}
+.pillar-grid__item{border-top:2px solid var(--brass);padding-top:0.85rem}
+.pillar-grid__item h4{font-family:var(--font-body);font-weight:700;font-size:0.98rem;color:var(--ink)}
+.pillar-grid__item p{margin-top:0.45rem;font-size:0.88rem;color:var(--slate);line-height:1.58}
+@media (max-width:560px){.pillar-grid{grid-template-columns:1fr}}
+
+/* Componente de abas — reaproveitado da home */
+.tabgroup{margin-top:1.8rem}
+.tabgroup__nav{
+  display:flex;flex-wrap:wrap;gap:0.2rem 0.3rem;
+  border-bottom:1px solid var(--mist);margin-bottom:2.2rem;
+}
+.tabgroup__btn{
+  font-family:var(--font-mono);font-size:0.76rem;letter-spacing:0.02em;
+  padding:0.85em 1em;color:var(--slate-soft);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .18s ease,border-color .18s ease;white-space:nowrap;
+}
+.tabgroup__btn:hover{color:var(--slate)}
+.tabgroup__btn.is-active{color:var(--brass-dim);border-color:var(--brass)}
+.tabgroup__panel{display:none}
+.tabgroup__panel.is-active{display:block;animation:tab-fade .35s ease}
+.tabgroup__intro{font-size:1rem;line-height:1.65;max-width:640px;color:var(--slate)}
+.tabgroup__list{margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem 2.2rem}
+.tabgroup__list li{font-size:0.94rem;line-height:1.6;padding-left:1.2rem;position:relative;color:var(--slate)}
+.tabgroup__list li::before{content:"—";position:absolute;left:0;color:var(--brass)}
+.tabgroup__list li strong{color:var(--ink);font-weight:600}
+@keyframes tab-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.tabgroup__panel.is-active{animation:none}}
+@media (max-width:700px){.tabgroup__list{grid-template-columns:1fr}}
+@media (max-width:600px){.tabgroup__btn{font-size:0.7rem;padding:0.7em 0.65em}}
+
+.impact-bar{
+  margin-top:clamp(2.5rem,5vw,3.5rem);
+  border:1px solid var(--paper-3);border-left:2px solid var(--brass);
+  padding:1.6rem 1.9rem;display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;
+  background:rgba(183,255,0,0.06);
+}
+.impact-bar__label{font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-dim)}
+.impact-bar p{font-size:0.98rem;color:var(--slate);flex:1;min-width:240px}
+.impact-bar strong{color:var(--ink)}
+.impact-bar--ink{border-color:var(--ink-mist-strong);background:rgba(183,255,0,0.09)}
+.impact-bar--ink p{color:rgba(238,241,236,0.8)}
+.impact-bar--ink strong{color:var(--paper-text)}
+
+/* ============================================================
+   POR QUE JUNTOS — diagrama de ciclo
+   ============================================================ */
+.loop{background:var(--ink);color:var(--paper-text)}
+.loop__layout{display:grid;grid-template-columns:0.95fr 1.05fr;gap:clamp(2.5rem,6vw,4.5rem);align-items:center}
+.loop-diagram{max-width:400px;margin:0 auto}
+.loop-arrow{stroke:var(--brass);stroke-width:1.4;stroke-dasharray:1 5;stroke-linecap:round;opacity:0.85}
+.loop-node{fill:var(--ink);stroke:var(--brass);stroke-width:1.5}
+.loop-node--accent{fill:var(--ink);stroke:var(--brass-bright);stroke-width:2}
+.loop-node-label{font-family:var(--font-display);font-weight:700;font-size:17px;fill:var(--paper-text)}
+.loop-node-sub{font-family:var(--font-mono);font-size:9px;letter-spacing:0.05em;fill:var(--slate-soft);text-transform:uppercase}
+.loop-list{margin-top:1.6rem;display:flex;flex-direction:column;gap:1rem}
+.loop-list li{font-size:0.98rem;color:rgba(238,241,236,0.85);line-height:1.55;padding-left:1.3rem;position:relative}
+.loop-list li::before{content:"→";position:absolute;left:0;color:var(--brass-bright);font-weight:600}
+.loop-list strong{color:var(--paper-text)}
+@media (max-width:900px){.loop__layout{grid-template-columns:1fr}}
+
+/* ============================================================
+   MÉTRICAS
+   ============================================================ */
+.metrics__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6rem;margin-top:2rem}
+.metric{padding-top:1rem;border-top:1px solid var(--mist)}
+.metric__spark{width:44px;height:26px;color:var(--brass)}
+.metric__label{display:block;margin-top:0.8rem;font-size:0.86rem;color:var(--slate);line-height:1.4}
+@media (max-width:900px){.metrics__grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ============================================================
+   PRA QUEM É
+   ============================================================ */
+.fit{background:var(--ink);color:var(--paper-text)}
+.fit__inner{max-width:700px}
+.fit__list{margin-top:1.6rem;display:flex;flex-direction:column;gap:1rem}
+.fit__list li{display:flex;gap:0.9rem;align-items:flex-start;font-size:1.02rem;color:rgba(238,241,236,0.85);line-height:1.55}
+.fit__list svg{flex:none;width:20px;height:20px;margin-top:0.2rem;color:var(--brass)}
+.fit__note{margin-top:1.8rem;padding-top:1.6rem;border-top:1px solid var(--ink-mist);font-size:0.95rem;color:var(--slate-soft);line-height:1.65}
+.fit__note a{color:var(--brass-bright);border-bottom:1px solid rgba(210,255,77,0.4);transition:border-color .18s ease}
+.fit__note a:hover{border-color:var(--brass-bright)}
+
+/* ============================================================
+   DIFERENCIAIS
+   ============================================================ */
+.diff__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem;margin-top:2rem}
+.diff__item{border-top:2px solid var(--brass);padding-top:1.1rem}
+.diff__item h3{font-family:var(--font-body);font-weight:700;font-size:1.08rem;color:var(--ink);line-height:1.35}
+.diff__item p{margin-top:0.6rem;font-size:0.94rem;color:var(--slate);line-height:1.6}
+@media (max-width:820px){.diff__grid{grid-template-columns:1fr}}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq__list{margin-top:2.2rem;max-width:760px}
+.faq__item{border-bottom:1px solid var(--mist);padding:1.5rem 0}
+.faq__item summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+  font-family:var(--font-body);font-weight:600;font-size:1.06rem;color:var(--ink);
+}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__item summary::after{
+  content:"";width:10px;height:10px;flex:none;
+  border-right:1.5px solid var(--brass-dim);border-bottom:1.5px solid var(--brass-dim);
+  transform:rotate(45deg);transition:transform .25s ease;
+}
+.faq__item[open] summary::after{transform:rotate(-135deg)}
+.faq__item p{margin-top:1.1rem;font-size:0.97rem;color:var(--slate);line-height:1.65;max-width:640px}
+
+/* ============================================================
+   CTA FINAL
+   ============================================================ */
+.cta-final{background:var(--ink);color:var(--paper-text);text-align:center;position:relative}
+.cta-final__inner{max-width:640px;margin:0 auto}
+.cta-final .eyebrow{justify-content:center}
+.cta-final .section__text{margin-left:auto;margin-right:auto}
+.cta-final__actions{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer{background:#070807;color:rgba(238,241,236,0.68);padding:3.6rem 0 0}
+.footer__grid{display:grid;grid-template-columns:1.3fr 0.9fr 0.9fr;gap:2.5rem;padding-bottom:2.4rem;border-bottom:1px solid var(--ink-mist)}
+.footer__brand .logo__word{color:var(--paper-text)}
+.footer__tagline{margin-top:1rem;font-size:0.92rem;max-width:280px;line-height:1.55;color:rgba(238,241,236,0.6)}
+.footer__legal{margin-top:0.9rem;font-size:0.8rem;max-width:280px;line-height:1.6;color:var(--slate-soft)}
+.footer__heading{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--slate-soft);margin-bottom:1.1rem}
+.footer__links a,.footer__contact a{display:block;font-size:0.92rem;color:rgba(238,241,236,0.68);padding:0.38rem 0;transition:color .18s ease;width:fit-content}
+.footer__contact a.footer__wa-link{display:flex;align-items:center;gap:0.5em}
+.footer__links a:hover,.footer__contact a:hover{color:var(--brass-bright)}
+.footer__bottom{padding:1.5rem 0 2rem;font-size:0.8rem;color:var(--slate-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.7rem}
+@media (max-width:760px){.footer__grid{grid-template-columns:1fr;gap:2.2rem}}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.js .section{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease}
+.js .section.is-visible{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.js .section{opacity:1;transform:none;transition:none}}
+
+/* ============================================================
+   RESPONSIVE — nav
+   ============================================================ */
+@media (max-width:860px){
+  .nav__links{
+    position:fixed;top:64px;left:0;right:0;bottom:0;z-index:99;
+    background:var(--ink);flex-direction:column;justify-content:flex-start;align-items:flex-start;
+    padding:2.5rem var(--edge);gap:1.6rem;
+    transform:translateX(100%);transition:transform .3s ease;
+  }
+  .nav__links.is-open{transform:translateX(0)}
+  .nav__links .nav__link{font-size:1.1rem}
+  .nav__toggle{display:block}
+  .nav__right .btn{display:none}
+}
+@media (max-width:520px){
+  .metrics__grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ============================================================
+   BLACK + LIME THEME — contrast overrides para seções "paper"
+   ============================================================ */
+.section--paper{background:var(--paper);color:var(--paper-text)}
+.section--paper .section__title,
+.section--paper .step__title,
+.section--paper .pillar__title,
+.section--paper .pillar-grid__item h4,
+.section--paper .diff__item h3,
+.section--paper .faq__item summary,
+.section--paper .impact-bar strong{color:var(--paper-text)}
+.section--paper .section__text,
+.section--paper .step__text,
+.section--paper .pillar__intro,
+.section--paper .pillar-grid__item p,
+.section--paper .tabgroup__intro,
+.section--paper .tabgroup__list li,
+.section--paper .diff__item p,
+.section--paper .metric__label,
+.section--paper .faq__item p,
+.section--paper .impact-bar p{color:var(--slate)}
+.section--paper .tabgroup__list li strong{color:var(--paper-text)}
+.section--paper .step__index{background:var(--ink-2);border-color:var(--mist)}
+.section--paper .pillar{border-top-color:var(--mist)}
+.section--paper .channel-label{fill:var(--slate)}
+.section--paper .channel-dest{fill:var(--ink-2)}
+.section--paper .channel-dest-label{fill:var(--paper-text)}
+.section--paper .metric{border-top-color:var(--mist)}
+.section--paper .faq__item{border-bottom-color:var(--mist)}
+.site-footer{background:#070807}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <a href="preview.html" class="logo" aria-label="Livonno — página inicial">
+    <svg class="logo__mark" viewBox="0 0 28 28" aria-hidden="true">
+      <circle cx="14" cy="14" r="10.5" fill="none" stroke="#B7FF00" stroke-width="1.4"/>
+      <circle cx="24" cy="14" r="2.1" fill="#B7FF00"/>
+    </svg>
+    <span class="logo__word">Livonno</span>
+  </a>
+  <nav class="nav__links" id="navLinks">
+    <a class="nav__link" href="#metodo">Como funciona</a>
+    <a class="nav__link" href="#inclui">O que inclui</a>
+    <a class="nav__link" href="#porque-juntos">Por que juntos</a>
+    <a class="nav__link" href="#perguntas">Perguntas</a>
+  </nav>
+  <div class="nav__right">
+    <button type="button" class="btn btn--primary btn--sm" data-cta="coming-soon">Agendar diagnóstico</button>
+    <button class="nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="topo">
+  <div class="hero__signal" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="signalGradient" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#B7FF00" stop-opacity="0"/>
+          <stop offset="55%" stop-color="#B7FF00" stop-opacity="0.34"/>
+          <stop offset="100%" stop-color="#B7FF00" stop-opacity="0.95"/>
+        </linearGradient>
+        <filter id="signalGlow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path class="signal-line signal-line--soft" d="M-120,610 C 230,590 440,510 650,388 S 970,160 1270,94"/>
+      <path class="signal-line signal-line--soft" d="M-120,655 C 280,620 500,535 710,390 S 1010,184 1270,148"/>
+      <path class="signal-line signal-line--main" d="M-100,585 C 245,565 470,476 684,348 S 990,137 1235,105"/>
+      <g transform="translate(1018 178)">
+        <circle class="signal-ring signal-pulse" r="54" stroke-width="1"/>
+        <circle class="signal-ring" r="30" stroke-width="1"/>
+        <circle class="signal-core" r="4.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero__inner">
+    <p class="eyebrow eyebrow--brass">Aceleração Livonno</p>
+    <h1 class="hero__headline"><span class="hero__headline-line hero__headline-accent">Tráfego que converte</span><span class="hero__headline-line hero__headline-line--mid">e cliente que volta</span><span class="hero__headline-line hero__headline-line--bottom">pra comprar de novo</span></h1>
+    <p class="hero__subheadline">A Aceleração é o plano da Livonno que reúne gestão de tráfego pago, CRO e retenção numa única operação — cada frente usa o que a outra aprende, em vez de trabalhar isolada.</p>
+    <div class="hero__actions">
+      <button type="button" class="btn btn--primary" data-cta="coming-soon">Quero conhecer a Aceleração</button>
+    </div>
+    <p class="hero__support">Sem compromisso — você recebe o diagnóstico mesmo se decidir não contratar.</p>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span class="hero__scroll-line"></span>Role para ver mais</div>
+</section>
+
+<section class="section problem" id="problema">
+  <div class="container">
+    <div class="problem__layout">
+      <div>
+        <p class="eyebrow eyebrow--brass">O problema</p>
+        <h2 class="section__title">Três operações, três versões da verdade</h2>
+        <p class="section__text">Uma agência cuida do tráfego. Outra pessoa (ou ninguém) cuida da conversão no site. Uma ferramenta dispara e-mail no automático, sem estratégia por trás. Cada frente otimiza a própria métrica, sem saber o que as outras duas estão aprendendo.</p>
+        <p class="section__text">O resultado mais comum: verba de anúncio trazendo visita que a página não converte, e cliente conquistado a duras penas que ninguém trabalha pra trazer de volta.</p>
+      </div>
+      <div class="problem__stat">
+        <span class="problem__stat-num">+20%</span>
+        <span class="problem__stat-label">de crescimento anual a mais em empresas onde marketing e vendas operam alinhados, na comparação com operações que atuam isoladas<em>Aberdeen Group</em></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper" id="metodo">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--ink" style="color:var(--brass-dim)">Como funciona</p>
+      <h2 class="section__title">Três frentes, uma única operação</h2>
+    </div>
+    <div class="steps__path">
+      <div class="step">
+        <div class="step__index">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="21" y2="21"/></svg>
+        </div>
+        <h3 class="step__title">1. Diagnóstico</h3>
+        <p class="step__text">Auditamos tráfego, site e base de clientes ao mesmo tempo, pra ver a operação de crescimento como um todo — não canal por canal.</p>
+      </div>
+      <div class="step">
+        <div class="step__index">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="14" cy="7" r="2.3" fill="currentColor" stroke="none"/><circle cx="9" cy="17" r="2.3" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3 class="step__title">2. Implementação</h3>
+        <p class="step__text">Colocamos as três frentes rodando juntas: campanhas de tráfego, ajustes de conversão no site (CRO) e automações de retenção.</p>
+      </div>
+      <div class="step">
+        <div class="step__index">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
+        </div>
+        <h3 class="step__title">3. Acompanhamento</h3>
+        <p class="step__text">Relatório mensal com o impacto direto em faturamento — de onde veio a visita até quem voltou a comprar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper" id="inclui" style="padding-top:0">
+  <div class="container">
+    <div class="section__head section__head--wide">
+      <p class="eyebrow eyebrow--ink" style="color:var(--brass-dim)">O que inclui</p>
+      <h2 class="section__title">As três frentes, em detalhe</h2>
+      <p class="section__text">A Aceleração cobre a jornada inteira — de quem nunca ouviu falar da sua loja até quem já comprou e pode comprar de novo. Veja o que entra em cada frente.</p>
+    </div>
+
+    <div class="pillar">
+      <p class="pillar__label">Frente 1 · Tráfego</p>
+      <div class="pillar__pair">
+        <div>
+          <h3 class="pillar__title">Quem ainda não conhece sua loja</h3>
+          <p class="pillar__intro">Gestão de mídia paga multicanal, com verba realocada pro que performa e criativos testados de verdade — não só uma campanha ligada no automático.</p>
+        </div>
+        <svg class="channels-viz" viewBox="0 0 420 300" role="img" aria-label="Múltiplos canais de tráfego convergindo pra sua loja">
+          <path class="channel-line" d="M50,38 Q220,70 372,150"/>
+          <path class="channel-line" d="M50,113 Q220,120 372,150"/>
+          <path class="channel-line" d="M50,188 Q220,178 372,150"/>
+          <path class="channel-line" d="M50,262 Q220,215 372,150"/>
+          <circle class="channel-dot" cx="50" cy="38" r="6"/>
+          <text class="channel-label" x="66" y="42">Meta Ads</text>
+          <circle class="channel-dot" cx="50" cy="113" r="6"/>
+          <text class="channel-label" x="66" y="117">Google Ads</text>
+          <circle class="channel-dot" cx="50" cy="188" r="6"/>
+          <text class="channel-label" x="66" y="192">TikTok &amp; novos canais</text>
+          <circle class="channel-dot" cx="50" cy="262" r="6"/>
+          <text class="channel-label" x="66" y="266">Remarketing</text>
+          <circle class="channel-dest" cx="372" cy="150" r="17"/>
+          <text class="channel-dest-label" x="372" y="188" text-anchor="middle">sua loja</text>
+        </svg>
+      </div>
+
+      <div class="tabgroup" data-tabgroup>
+        <div class="tabgroup__nav" role="tablist" aria-label="Aspectos de tráfego trabalhados na Aceleração">
+          <button type="button" class="tabgroup__btn is-active" role="tab" id="tab-meta" aria-controls="panel-meta" aria-selected="true">Meta Ads</button>
+          <button type="button" class="tabgroup__btn" role="tab" id="tab-google" aria-controls="panel-google" aria-selected="false" tabindex="-1">Google Ads</button>
+          <button type="button" class="tabgroup__btn" role="tab" id="tab-criativos" aria-controls="panel-criativos" aria-selected="false" tabindex="-1">Criativos &amp; copy</button>
+          <button type="button" class="tabgroup__btn" role="tab" id="tab-publicos" aria-controls="panel-publicos" aria-selected="false" tabindex="-1">Públicos &amp; remarketing</button>
+          <button type="button" class="tabgroup__btn" role="tab" id="tab-verba" aria-controls="panel-verba" aria-selected="false" tabindex="-1">Verba &amp; ROAS</button>
+          <button type="button" class="tabgroup__btn" role="tab" id="tab-canais" aria-controls="panel-canais" aria-selected="false" tabindex="-1">Novos canais</button>
+        </div>
+        <div class="tabgroup__panels">
+          <div class="tabgroup__panel is-active" id="panel-meta" role="tabpanel" aria-labelledby="tab-meta">
+            <p class="tabgroup__intro">Onde a maioria dos e-commerces brasileiros ainda gasta a maior fatia da verba — e onde o criativo certo multiplica o retorno mais rápido.</p>
+            <ul class="tabgroup__list">
+              <li><strong>Campanhas de conversão</strong> — otimizadas pro objetivo certo (compra), não engajamento ou alcance.</li>
+              <li><strong>Testes de criativo</strong> — vários ângulos e formatos rodando em paralelo, não um anúncio só no ar.</li>
+              <li><strong>Públicos personalizados</strong> — clientes atuais, visitantes do site, quem interagiu no Instagram.</li>
+              <li><strong>Lookalike</strong> — públicos semelhantes construídos a partir da sua base real de clientes.</li>
+            </ul>
+          </div>
+          <div class="tabgroup__panel" id="panel-google" role="tabpanel" aria-labelledby="tab-google" hidden>
+            <p class="tabgroup__intro">Captura quem já está procurando o que você vende — a intenção de compra mais alta que existe em mídia paga.</p>
+            <ul class="tabgroup__list">
+              <li><strong>Google Shopping</strong> — seu catálogo aparecendo direto na busca, com preço e foto.</li>
+              <li><strong>Rede de pesquisa</strong> — palavras-chave de quem já quer comprar, não só pesquisar.</li>
+              <li><strong>Performance Max</strong> — automação do Google testando combinações de criativo e público.</li>
+              <li><strong>Remarketing de busca</strong> — quem pesquisou e não comprou ainda.</li>
+            </ul>
+          </div>
+          <div class="tabgroup__panel" id="panel-criativos" role="tabpanel" aria-labelledby="tab-criativos" hidden>
+            <p class="tabgroup__intro">O anúncio mais bem segmentado do mundo não funciona com um criativo que não para o scroll.</p>
+            <ul class="tabgroup__list">
+              <li><strong>Testes de ângulo</strong> — dor, desejo, prova social e urgência testados lado a lado.</li>
+              <li><strong>UGC e vídeo</strong> — conteúdo que parece feed, não propaganda.</li>
+              <li><strong>Copy orientada a objeção</strong> — o texto do anúncio já responde a dúvida antes do clique.</li>
+              <li><strong>Biblioteca de criativos</strong> — histórico do que funcionou, pra não recomeçar do zero a cada campanha.</li>
+            </ul>
+          </div>
+          <div class="tabgroup__panel" id="panel-publicos" role="tabpanel" aria-labelledby="tab-publicos" hidden>
+            <p class="tabgroup__intro">Quem já te conhece custa muito menos pra converter do que quem nunca ouviu falar da loja.</p>
+            <ul class="tabgroup__list">
+              <li><strong>Funil de públicos</strong> — frio, morno e quente, com mensagem diferente pra cada um.</li>
+              <li><strong>Remarketing dinâmico</strong> — o produto exato que a pessoa viu, de volta na tela dela.</li>
+              <li><strong>Exclusão inteligente</strong> — quem já comprou não recebe anúncio de primeira compra.</li>
+              <li><strong>Sincronia com a base</strong> — os mesmos dados de RFM usados na retenção alimentam o público de anúncio.</li>
+            </ul>
+          </div>
+          <div class="tabgroup__panel" id="panel-verba" role="tabpanel" aria-labelledby="tab-verba" hidden>
+            <p class="tabgroup__intro">Verba mal distribuída é a forma mais silenciosa de perder dinheiro em tráfego pago.</p>
+            <ul class="tabgroup__list">
+              <li><strong>Alocação por canal</strong> — verba redistribuída pro que está performando, toda semana.</li>
+              <li><strong>Meta de ROAS/CAC</strong> — definida junto com você, não um número genérico de mercado.</li>
+              <li><strong>Curva de aprendizado protegida</strong> — sem trocar campanha toda hora e perder otimização.</li>
+              <li><strong>Relatório de verba</strong> — quanto entrou, quanto voltou, sem enrolação.</li>
+            </ul>
+          </div>
+          <div class="tabgroup__panel" id="panel-canais" role="tabpanel" aria-labelledby="tab-canais" hidden>
+            <p class="tabgroup__intro">Meta e Google não são os únicos lugares onde seu cliente está — e testar um canal novo cedo custa menos do que chegar depois de todo mundo.</p>
+            <ul class="tabgroup__list">
+              <li><strong>TikTok Ads</strong> — quando o público e o produto combinam com o formato.</li>
+              <li><strong>Pinterest Ads</strong> — forte pra decoração, moda, casa e presente.</li>
+              <li><strong>Influenciadores e parcerias</strong> — como complemento à mídia paga, não substituto.</li>
+              <li><strong>Teste estruturado</strong> — orçamento pequeno e controlado antes de qualquer aposta grande.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <p class="pillar__label">Frente 2 · CRO</p>
+      <h3 class="pillar__title">Quem chega no site</h3>
+      <p class="pillar__intro">Os mesmos ajustes de conversão que aplicamos em todos os planos Livonno — velocidade, página de produto, checkout, confiança e testes A/B constantes, sem depender de achismo.</p>
+      <div class="pillar-grid">
+        <div class="pillar-grid__item">
+          <h4>Velocidade &amp; performance</h4>
+          <p>Core Web Vitals, imagens e cache — carregamento rápido mesmo em pico de campanha.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>Página de produto &amp; checkout</h4>
+          <p>Fotos, copy, prova social e um checkout com só os campos essenciais pra fechar a compra.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>Confiança &amp; prova social</h4>
+          <p>Selos, avaliações reais e política clara — o que decide quem nunca comprou de você.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>Testes A/B contínuos</h4>
+          <p>Hipótese, validação estatística e aprendizado documentado a cada mudança no site.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <p class="pillar__label">Frente 3 · Retenção</p>
+      <h3 class="pillar__title">Quem já comprou uma vez</h3>
+      <p class="pillar__intro">As mesmas automações de recompra dos planos Livonno — recuperação, régua de boas-vindas, canais combinados e a Matriz RFM guiando cada campanha.</p>
+      <div class="pillar-grid">
+        <div class="pillar-grid__item">
+          <h4>Recuperação de carrinho, Pix e SMS</h4>
+          <p>Sequência por e-mail, WhatsApp e SMS, disparada em minutos — não em dias.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>Régua de boas-vindas &amp; pós-compra</h4>
+          <p>Do primeiro contato ao pedido de avaliação, passando por NPS e upsell relevante.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>WhatsApp &amp; e-mail contínuo</h4>
+          <p>Novidades, pós-venda e reativação de quem sumiu, sem virar spam.</p>
+        </div>
+        <div class="pillar-grid__item">
+          <h4>Matriz RFM &amp; campanhas sazonais</h4>
+          <p>Segmentação por valor real do cliente, aplicada em cada data importante do seu nicho.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section loop" id="porque-juntos">
+  <div class="container">
+    <div class="loop__layout">
+      <svg class="loop-diagram" viewBox="0 0 460 420" role="img" aria-label="Ciclo entre tráfego, CRO e retenção, cada frente alimentando a próxima">
+        <path class="loop-arrow" d="M256,115 Q356,170 352,285"/>
+        <path class="loop-arrow" d="M326,330 Q230,399 134,330"/>
+        <path class="loop-arrow" d="M108,285 Q104,170 204,115"/>
+        <g>
+          <circle class="loop-node" cx="230" cy="70" r="52"/>
+          <text class="loop-node-label" x="230" y="65" text-anchor="middle">Tráfego</text>
+          <text class="loop-node-sub" x="230" y="84" text-anchor="middle">atrai</text>
+        </g>
+        <g>
+          <circle class="loop-node loop-node--accent" cx="378" cy="330" r="52"/>
+          <text class="loop-node-label" x="378" y="325" text-anchor="middle">CRO</text>
+          <text class="loop-node-sub" x="378" y="344" text-anchor="middle">converte</text>
+        </g>
+        <g>
+          <circle class="loop-node" cx="82" cy="330" r="52"/>
+          <text class="loop-node-label" x="82" y="325" text-anchor="middle">Retenção</text>
+          <text class="loop-node-sub" x="82" y="344" text-anchor="middle">multiplica</text>
+        </g>
+      </svg>
+      <div>
+        <p class="eyebrow eyebrow--brass">Por que juntos</p>
+        <h2 class="section__title">Cada frente aprende com a outra</h2>
+        <p class="section__text">Separado, cada serviço otimiza só a própria métrica. Junto, o dado circula — e cada decisão fica mais barata de tomar.</p>
+        <ul class="loop-list">
+          <li><strong>Tráfego → CRO:</strong> quem chegou e por qual anúncio, pra a página falar a mesma língua da campanha.</li>
+          <li><strong>CRO → Retenção:</strong> quem comprou e o quê, pra a régua certa começar já no dia 1.</li>
+          <li><strong>Retenção → Tráfego:</strong> quem vale mais na Matriz RFM, pra atrair gente parecida gastando menos.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="impact-bar impact-bar--ink">
+      <span class="impact-bar__label" style="color:var(--brass-bright)">O impacto</span>
+      <p>Empresas com marketing e vendas alinhados crescem <strong>até 20% mais rápido ao ano</strong> do que operações que atuam isoladas (Aberdeen Group).</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper" id="metricas">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--ink" style="color:var(--brass-dim)">Transparência</p>
+      <h2 class="section__title">Como medimos resultado</h2>
+      <p class="section__text">Todo mês, um relatório único cruza tráfego, conversão e retenção — não três relatórios que não conversam entre si.</p>
+    </div>
+    <div class="metrics__grid">
+      <div class="metric">
+        <svg class="metric__spark" aria-hidden="true" viewBox="0 0 40 24"><polyline points="1,4 12,10 22,7 39,19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="metric__label">CAC — custo de aquisição</span>
+      </div>
+      <div class="metric">
+        <svg class="metric__spark" aria-hidden="true" viewBox="0 0 40 24"><rect x="2" y="12" width="6" height="12" fill="currentColor" opacity="0.5"/><rect x="12" y="6" width="6" height="18" fill="currentColor" opacity="0.7"/><rect x="22" y="14" width="6" height="10" fill="currentColor" opacity="0.55"/><rect x="32" y="2" width="6" height="22" fill="currentColor"/></svg>
+        <span class="metric__label">ROAS — retorno sobre mídia</span>
+      </div>
+      <div class="metric">
+        <svg class="metric__spark" aria-hidden="true" viewBox="0 0 40 24"><polyline points="1,20 12,13 22,16 39,3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="metric__label">Taxa de conversão do site</span>
+      </div>
+      <div class="metric">
+        <svg class="metric__spark" aria-hidden="true" viewBox="0 0 40 24"><rect x="2" y="14" width="6" height="10" fill="currentColor" opacity="0.5"/><rect x="12" y="9" width="6" height="15" fill="currentColor" opacity="0.65"/><rect x="22" y="4" width="6" height="20" fill="currentColor" opacity="0.85"/><rect x="32" y="1" width="6" height="23" fill="currentColor"/></svg>
+        <span class="metric__label">Taxa de recompra</span>
+      </div>
+      <div class="metric">
+        <svg class="metric__spark" aria-hidden="true" viewBox="0 0 40 24"><polyline points="1,21 14,15 27,17 39,4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="metric__label">LTV — valor do cliente</span>
+      </div>
+    </div>
+    <p class="section__text" style="margin-top:2.2rem;max-width:640px">Nada de métrica de vaidade. Se um número não representa dinheiro entrando ou saindo da sua conta, ele não entra no relatório.</p>
+  </div>
+</section>
+
+<section class="section fit" id="pra-quem">
+  <div class="container">
+    <div class="fit__inner">
+      <p class="eyebrow eyebrow--brass">Pra quem é a Aceleração</p>
+      <h2 class="section__title">Funciona melhor pra e-commerces que:</h2>
+      <ul class="fit__list">
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg>Ainda não têm tráfego rodando de forma consistente, ou querem trocar de fornecedor</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg>Preferem um único parceiro respondendo por tráfego, conversão e retenção — em vez de coordenar 3 fornecedores diferentes</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg>Têm orçamento mínimo de mídia pra sustentar teste e aprendizado — não faz sentido com verba simbólica</li>
+      </ul>
+      <p class="fit__note">Se sua loja já tem tráfego rodando bem e só precisa de CRO e retenção, os planos Órbita (Baixa, Média e Alta) provavelmente fazem mais sentido — <a href="preview.html#planos">conheça os planos Órbita</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper" id="diferenciais">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--ink" style="color:var(--brass-dim)">Por que a Aceleração</p>
+      <h2 class="section__title">Uma operação, não três fornecedores</h2>
+    </div>
+    <div class="diff__grid">
+      <div class="diff__item">
+        <h3>Sem jogo de empurra</h3>
+        <p>Se o resultado não vem, não tem "a agência de tráfego culpa o site" ou "o site culpa o anúncio". Uma equipe, uma responsabilidade.</p>
+      </div>
+      <div class="diff__item">
+        <h3>Dado circulando de verdade</h3>
+        <p>O que aprendemos testando anúncio vira teste no site. O que aprendemos sobre quem recompra vira público de anúncio. Nada fica isolado.</p>
+      </div>
+      <div class="diff__item">
+        <h3>Um relatório, não três</h3>
+        <p>Você acompanha tráfego, conversão e retenção no mesmo lugar, com os mesmos números — sem traduzir de uma ferramenta pra outra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper" id="perguntas">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--ink" style="color:var(--brass-dim)">Antes de fechar</p>
+      <h2 class="section__title">Perguntas frequentes</h2>
+    </div>
+    <div class="faq__list">
+      <details class="faq__item">
+        <summary>Vocês assumem minhas campanhas atuais ou começam do zero?</summary>
+        <p>Depende do que a auditoria encontra. Se as campanhas atuais têm base boa, otimizamos em cima delas. Se não, reestruturamos do zero.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Qual o investimento mínimo em mídia?</summary>
+        <p>Varia por nicho e objetivo — definimos juntos na auditoria, de acordo com o que faz sentido pro seu volume de vendas atual.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Isso substitui minha agência de tráfego atual?</summary>
+        <p>Sim. Na Aceleração, a Livonno assume a gestão completa de tráfego, junto com CRO e retenção.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Qual a diferença entre a Aceleração e os planos Órbita?</summary>
+        <p>Os planos Órbita (Baixa, Média e Alta) são pra quem já tem tráfego rodando bem e quer só CRO e retenção. A Aceleração inclui a gestão de tráfego também, pra quem quer as três frentes com um único parceiro.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Quanto tempo até ver resultado?</summary>
+        <p>Ajustes de tráfego costumam mostrar sinal já nas primeiras semanas de otimização. CRO e retenção têm impacto contínuo, mês a mês, à medida que os testes acumulam.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-final" id="contato">
+  <div class="container">
+    <div class="cta-final__inner">
+      <p class="eyebrow eyebrow--brass">Comece agora</p>
+      <h2 class="section__title">Pronto pra rodar as três frentes juntas?</h2>
+      <p class="section__text">Comece pela auditoria gratuita. A gente audita tráfego, site e base de clientes, e mostra exatamente onde a operação está perdendo dinheiro.</p>
+      <div class="cta-final__actions">
+        <button type="button" class="btn btn--primary" data-cta="coming-soon">Quero minha auditoria gratuita</button>
+        <a href="https://wa.me/5511975398447" class="btn btn--ghost" target="_blank" rel="noopener">
+          <svg viewBox="0 0 32 32" aria-hidden="true" width="18" height="18"><path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6c1.7.9 3.7 1.5 5.9 1.5 6.6 0 12-5.4 12-12S22.6 4 16 4z" fill="#fff"/><path d="M22.4 19.1c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z" fill="#050505"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a href="preview.html" class="logo" aria-label="Livonno — página inicial">
+        <svg class="logo__mark" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10.5" fill="none" stroke="#B7FF00" stroke-width="1.4"/><circle cx="24" cy="14" r="2.1" fill="#B7FF00"/></svg>
+        <span class="logo__word">Livonno</span>
+      </a>
+      <p class="footer__tagline">Tráfego, CRO e retenção para e-commerce.</p>
+      <p class="footer__legal">Livonno Consultoria LTDA<br>CNPJ 65.686.749/0001-80<br>Av. Brigadeiro Faria Lima, 1572 – Sala 1022<br>Jardim Paulistano, São Paulo/SP – CEP 01451-917</p>
+    </div>
+    <nav class="footer__links">
+      <p class="footer__heading">Navegação</p>
+      <a href="#metodo">Como funciona</a>
+      <a href="#inclui">O que inclui</a>
+      <a href="#porque-juntos">Por que juntos</a>
+      <a href="#perguntas">Perguntas</a>
+      <a href="preview.html">Outros planos</a>
+    </nav>
+    <div class="footer__contact">
+      <p class="footer__heading">Contato</p>
+      <a href="mailto:contato@livonno.com.br">contato@livonno.com.br</a>
+      <a href="https://wa.me/5511975398447" class="footer__wa-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" aria-hidden="true" width="15" height="15"><path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6c1.7.9 3.7 1.5 5.9 1.5 6.6 0 12-5.4 12-12S22.6 4 16 4z" fill="#B7FF00"/><path d="M22.4 19.1c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z" fill="#070807"/></svg>
+        (11) 97539-8447
+      </a>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© 2026 Livonno. Todos os direitos reservados.</span>
+    <span>Feito com dados, não com achismo.</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/5511975398447" class="wa-float" aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+  <span class="wa-float__ring" aria-hidden="true"></span>
+  <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+    <path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6c1.7.9 3.7 1.5 5.9 1.5 6.6 0 12-5.4 12-12S22.6 4 16 4z" fill="#fff"/>
+    <path d="M22.4 19.1c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z" fill="#050505"/>
+  </svg>
+</a>
+
+<div id="comingSoonToast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+document.documentElement.classList.add('js');
+
+// Header scroll state
+const header = document.getElementById('siteHeader');
+const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+onScroll();
+window.addEventListener('scroll', onScroll, {passive:true});
+
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('is-open');
+  navToggle.classList.toggle('is-open', open);
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('is-open');
+  navToggle.classList.remove('is-open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
+
+// Scroll reveal
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('.section').forEach(s => io.observe(s));
+} else {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('is-visible'));
+}
+
+// Mensagem "em breve" nos CTAs de captação de novas lojas
+const comingSoonToast = document.getElementById('comingSoonToast');
+let comingSoonTimer;
+document.querySelectorAll('[data-cta="coming-soon"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    comingSoonToast.textContent = '';
+    requestAnimationFrame(() => {
+      comingSoonToast.textContent = 'Em breve, aceitaremos novas lojas.';
+    });
+    comingSoonToast.classList.add('is-visible');
+    clearTimeout(comingSoonTimer);
+    comingSoonTimer = setTimeout(() => comingSoonToast.classList.remove('is-visible'), 4000);
+  });
+});
+
+// Abas (Tráfego)
+document.querySelectorAll('[data-tabgroup]').forEach(group => {
+  const tabs = Array.from(group.querySelectorAll('[role="tab"]'));
+  const panels = Array.from(group.querySelectorAll('[role="tabpanel"]'));
+  function activate(tab, focusTab) {
+    tabs.forEach(t => {
+      const selected = t === tab;
+      t.classList.toggle('is-active', selected);
+      t.setAttribute('aria-selected', selected ? 'true' : 'false');
+      t.tabIndex = selected ? 0 : -1;
+    });
+    panels.forEach(p => {
+      const show = p.id === tab.getAttribute('aria-controls');
+      p.classList.toggle('is-active', show);
+      p.hidden = !show;
+    });
+    if (focusTab) tab.focus();
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => activate(tab, false));
+    tab.addEventListener('keydown', e => {
+      let idx = null;
+      if (e.key === 'ArrowRight') idx = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') idx = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') idx = 0;
+      else if (e.key === 'End') idx = tabs.length - 1;
+      if (idx === null) return;
+      e.preventDefault();
+      activate(tabs[idx], true);
+    });
+  });
+});
+</script>
+</body>
+</html>
